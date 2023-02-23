@@ -1,0 +1,31 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": true,
+    "extraFileExtensions": [".svelte"]
+  },
+  "extends": ["standard", "plugin:@typescript-eslint/recommended"],
+  "plugins": ["svelte3", "@typescript-eslint"],
+  "overrides": [
+    {
+      "files": ["*.svelte"],
+      "processor": "svelte3/svelte3"
+    },
+    {
+      "files": [
+        "svelte.config.js",
+        "playwright.config.ts",
+        "tailwind.config.cjs"
+      ],
+      "parserOptions": {
+        "project": false
+      }
+    }
+  ],
+  "rules": {
+    "no-multiple-empty-lines": "off"
+  },
+  "settings": {
+    "svelte3/typescript": true
+  }
+}
