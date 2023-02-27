@@ -1,13 +1,9 @@
 import adapter from '@sveltejs/adapter-static'
-import sveltePreprocess from 'svelte-preprocess'
-import tailwindcss from 'tailwindcss'
-import autoprefixer from 'autoprefixer'
+import { vitePreprocess } from '@sveltejs/kit/vite'
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-  preprocess: sveltePreprocess({
-    postcss: { plugins: [tailwindcss(), autoprefixer()] }
-  }),
+  preprocess: vitePreprocess(),
   kit: {
     adapter: adapter()
   }

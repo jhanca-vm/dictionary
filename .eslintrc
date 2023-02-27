@@ -1,31 +1,26 @@
 {
+  "extends": ["standard", "plugin:@typescript-eslint/recommended"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "project": true,
     "extraFileExtensions": [".svelte"]
   },
-  "extends": ["standard", "plugin:@typescript-eslint/recommended"],
-  "plugins": ["svelte3", "@typescript-eslint"],
+  "plugins": ["@typescript-eslint"],
+  "ignorePatterns": ["*.config.*"],
   "overrides": [
     {
       "files": ["*.svelte"],
-      "processor": "svelte3/svelte3"
-    },
-    {
-      "files": [
-        "svelte.config.js",
-        "playwright.config.ts",
-        "tailwind.config.cjs"
-      ],
+      "parser": "svelte-eslint-parser",
       "parserOptions": {
-        "project": false
+        "parser": {
+          "ts": "@typescript-eslint/parser"
+        }
       }
     }
   ],
   "rules": {
-    "no-multiple-empty-lines": "off"
-  },
-  "settings": {
-    "svelte3/typescript": true
+    "space-before-function-paren": "off",
+    "no-undef": "off",
+    "@typescript-eslint/no-unused-vars": "off"
   }
 }
