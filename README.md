@@ -1,5 +1,7 @@
 # Dictionary
 
+Dictionary web app
+
 ## Developing
 
 Once you've installed dependencies with `pnpm install`, start a development server:
@@ -19,4 +21,4 @@ To create a production version:
 pnpm build
 ```
 
-You can preview the production build with `pnpm preview`.
+You can preview the production build with `pnpm preview`

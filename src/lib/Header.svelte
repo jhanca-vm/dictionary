@@ -1,48 +1,61 @@
 <script lang="ts">
   import { getContext } from 'svelte'
-  import DarkModeIcon from './DarkModeIcon.svelte'
-  import FontSelect from './FontSelect.svelte'
+  import { autoCloseDialog } from './utils'
 
-  let darkMode = getContext<boolean>('dark')
+  enum Font {
+    Sans,
+    Serif,
+    Mono
+  }
 
-  function handleChange() {
-    darkMode
-      ? localStorage.setItem('theme', 'dark')
-      : localStorage.setItem('theme', 'light')
+  let font = getContext<string>('font')
+  let dialog: HTMLDialogElement | undefined
 
-    document.documentElement.classList.toggle('dark')
+  function setFont() {
+    const newFont = Font[Number(dialog?.returnValue)]
+
+    document.body.classList.replace(
+      `font-${font.toLowerCase()}`,
+      `font-${newFont.toLowerCase()}`
+    )
+
+    font = newFont
+
+    localStorage.setItem('font', font)
   }
 </script>
 
-<header class="py-6 flex justify-between items-center md:pt-14 md:pb-[3.25rem]">
+<header class="flex items-center justify-between py-6 md:pt-14 md:pb-[3.25rem]">
   <img class="w-7 md:w-8" src="/logo.svg" alt="" width="34" height="38" />
-  <div class="flex items-center">
-    <FontSelect />
-    <div
-      class="border-l border-l-[#e9e9e9] ml-4 pl-4 flex items-center gap-x-3
-        h-8 md:gap-x-5 md:ml-[1.625rem] md:pl-[1.625rem]"
+  <button
+    class="relative flex items-center gap-x-4 text-sm font-bold md:gap-x-4.5
+    md:text-lg lg:gap-x-4"
+    use:autoCloseDialog={dialog}
+    on:click={() => dialog?.show()}
+  >
+    <span>
+      {font}
+      {#if font === 'Sans'}Serif{/if}
+    </span>
+    <img class="w-3" src="/icons/arrow-down.svg" alt="" width="14" height="8" />
+    <dialog
+      class="top-full left-auto right-0 mt-4.5 w-[11.5rem] cursor-default
+      rounded-2xl bg-[#1f1f1f] p-6 text-inherit shadow-md shadow-[#a445ed]"
+      bind:this={dialog}
+      on:close={setFont}
     >
-      <label
-        aria-label="Dark mode"
-        class="bg-[#757575] w-10 h-5 rounded-[0.625rem] dark:bg-[#a445ed]
-          p-[0.1875rem]"
-        for="dark"
-      >
-        <span
-          class="bg-white w-3.5 h-full block rounded-full duration-150
-            dark:translate-x-5"
-        />
-      </label>
-      <input
-        class="hidden"
-        id="dark"
-        type="checkbox"
-        bind:checked={darkMode}
-        on:change={handleChange}
-      />
-      <label for="dark" class="text-[#838383] dark:text-[#a445ed]">
-        <DarkModeIcon />
-      </label>
-    </div>
-  </div>
+      <form method="dialog" class="grid gap-y-4 text-lg font-bold">
+        {#each Object.keys(Font).splice(3) as category, index (category)}
+          {@const font = `font-${category.toLowerCase()}`}
+          <button
+            class={`${font} text-left hover:text-[#a445ed]`}
+            value={index}
+          >
+            {category}
+            {#if category === 'Sans'}Serif{/if}
+          </button>
+        {/each}
+      </form>
+    </dialog>
+  </button>
 </header>

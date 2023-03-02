@@ -16,7 +16,7 @@ interface Meaning {
 export interface Definition {
   word: string
   phonetics: Phonetic[]
-  meanings: Meaning[],
+  meanings: Meaning[]
   sourceUrls: [string]
 }
 

@@ -11,14 +11,6 @@
 
   const promise = new Promise<void>(resolve => {
     const font = localStorage.getItem('font')
-    const theme = localStorage.getItem('theme')
-    const prefersDark =
-      theme === 'dark' ||
-      (!theme && matchMedia('(prefers-color-scheme: dark)').matches)
-
-    if (!prefersDark) document.documentElement.classList.remove('dark')
-
-    setContext('dark', prefersDark)
 
     if (font && font !== 'Sans') {
       document.body.classList.replace('font-sans', `font-${font.toLowerCase()}`)
@@ -32,7 +24,7 @@
 </script>
 
 {#await promise}
-  <figure class="h-screen grid place-items-center">
+  <figure class="grid h-screen place-items-center">
     <img
       class="w-24 animate-bounce"
       src="/logo.svg"
@@ -42,7 +34,7 @@
     />
   </figure>
 {:then}
-  <div class="max-w-[46rem] mx-auto" in:fly={{ duration: 300 }}>
+  <div class="mx-auto max-w-[46rem]" in:fly={{ duration: 300 }}>
     <Header />
     <main>
       <slot />

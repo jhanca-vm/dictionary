@@ -3,14 +3,14 @@
 </script>
 
 <footer
-  class="border-t border-t-[#e9e9e9] pt-6 pb-20 text-sm leading-tight
-    dark:border-t-[#3a3a3a] md:pt-5 md:pb-28 md:flex md:gap-x-5"
+  class="border-t border-t-[#3a3a3a] pt-6 pb-20 text-sm leading-tight md:flex
+    md:gap-x-5 md:pt-5 md:pb-28"
 >
-  <h4 class="text-[#757575] mb-2 underline underline-offset-2 md:mb-0">
+  <h4 class="mb-2 text-[#757575] underline underline-offset-2 md:mb-0">
     Source
   </h4>
   <a
-    class="underline flex gap-x-2"
+    class="flex gap-x-2 underline"
     href={sourceUrl}
     target="_blank"
     rel="noreferrer"

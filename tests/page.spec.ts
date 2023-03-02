@@ -31,22 +31,6 @@ test('displays an error message when trying to submit the blank field', async ({
   await expect(page.getByText('Whoops, can’t be empty…')).toBeVisible()
 })
 
-test('switches between light and dark themes', async ({ page }) => {
-  const html = page.locator('html')
-  const darkModeSwitch = page.getByLabel('Dark mode')
-
-  await expect(html).toHaveClass('dark')
-  await expect(darkModeSwitch).toBeChecked()
-
-  await darkModeSwitch.uncheck()
-
-  await expect(html).not.toHaveClass('dark')
-
-  await darkModeSwitch.check()
-
-  await expect(html).toHaveClass('dark')
-})
-
 test('switches between serif, sans serif, and monospace fonts', async ({
   page
 }) => {
